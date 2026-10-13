@@ -440,16 +440,30 @@ export function Settings() {
   );
 }
 
-function ConfirmWipeDialog({ open, onClose, onConfirm }: { open: boolean; onClose: () => void; onConfirm: () => void }) {
+
+function ConfirmWipeDialog({
+  open,
+  onClose,
+  onConfirm,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+}) {
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
+
   useEffect(() => {
     if (open) {
       setText("");
       setBusy(false);
     }
   }, [open]);
+
+  if (!open) return null;
+
   return (
+
     <div className="no-print fixed inset-0 z-[70] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/75 backdrop-blur-sm" onClick={busy ? undefined : onClose} />
       <div className="anim-pop relative z-10 w-full max-w-md rounded-2xl border border-rose-500/30 bg-base-850 p-5 shadow-2xl">
