@@ -1,0 +1,221 @@
+@import "tailwindcss";
+
+@theme {
+  --color-base-950: #070b09;
+  --color-base-900: #0b100e;
+  --color-base-850: #0f1513;
+  --color-base-800: #131a17;
+  --color-base-750: #17201c;
+  --color-base-700: #1c2723;
+  --color-base-600: #243029;
+  --color-line: #23302a;
+  --color-line-soft: #1a2320;
+
+  --color-mint-300: #6ee7b7;
+  --color-mint-400: #34d399;
+  --color-mint-500: #10b981;
+  --color-mint-600: #059669;
+  --color-mint-700: #047857;
+
+  --color-flame-400: #fb923c;
+  --color-flame-500: #f97316;
+  --color-rose-450: #f87171;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scrollbar-color: var(--color-base-600) transparent;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-base-950);
+    color: #e6efe9;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overscroll-behavior-y: none;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font-family: inherit;
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.85);
+    cursor: pointer;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #22302a;
+    border-radius: 999px;
+    border: 2px solid var(--color-base-950);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2e4038;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ---------- Animations ---------- */
+@keyframes dk-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes dk-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dk-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dk-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes dk-grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.anim-fade-up {
+  animation: dk-fade-up 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.anim-fade {
+  animation: dk-fade 0.25s ease-out both;
+}
+.anim-pop {
+  animation: dk-pop 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.anim-slide-in {
+  animation: dk-slide-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.bar-grow {
+  transform-origin: bottom;
+  animation: dk-grow 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-fade-up,
+  .anim-fade,
+  .anim-pop,
+  .anim-slide-in,
+  .bar-grow {
+    animation: none !important;
+  }
+}
+
+/* Preferensi pengguna: kurangi animasi (menu Pengaturan) */
+.no-anim .anim-fade-up,
+.no-anim .anim-fade,
+.no-anim .anim-pop,
+.no-anim .anim-slide-in,
+.no-anim .bar-grow {
+  animation: none !important;
+}
+.no-anim * {
+  transition-duration: 0.01ms !important;
+}
+
+/* ---------- Print (laporan bulanan) ---------- */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+  html,
+  body {
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
+  .print-area {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+  }
+  .print-root {
+    display: block !important;
+    overflow: visible !important;
+    height: auto !important;
+  }
+  .print-card {
+    break-inside: avoid;
+    background: #ffffff !important;
+    border: 1px solid #d4d4d4 !important;
+    color: #111111 !important;
+    box-shadow: none !important;
+  }
+  .print-card * {
+    color: #111111 !important;
+    border-color: #d4d4d4 !important;
+  }
+  .print-keep {
+    break-inside: avoid;
+  }
+}
